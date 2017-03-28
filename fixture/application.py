@@ -11,6 +11,14 @@ class Application:
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
 
+    def is_valid(self):
+        try:
+            self.wd.current_url
+            return True
+        except:
+            return False
+
+
     def home_page(self):
         wd = self.wd
         wd.get("http://94.125.123.247/addressbook/")
