@@ -1,10 +1,11 @@
+from model.group import Group
+
 
 class GroupHelper:
-
     def __init__(self, app):
         self.app = app
 
-    def open_groups(self):
+    def open_groups_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
             wd.find_element_by_link_text("Групи").click()
@@ -23,7 +24,7 @@ class GroupHelper:
 
     def create(self, group):
         wd = self.app.wd
-        self.open_groups()
+        self.open_groups_page()
         # init group creation
         wd.find_element_by_name("new").click()
         self.fill_group_form(group)
@@ -42,7 +43,7 @@ class GroupHelper:
 
     def modify_first_group(self, new_group_data):
         wd = self.app.wd
-        self.open_groups()
+        self.open_groups_page()
         self.select_first_group()
         # open modification form
         wd.find_element_by_name("edit").click()
@@ -54,7 +55,7 @@ class GroupHelper:
 
     def delete_first_group(self):
         wd = self.app.wd
-        self.open_groups()
+        self.open_groups_page()
         self.select_first_group()
         # submit deletion
         wd.find_element_by_name("delete").click()
@@ -62,5 +63,15 @@ class GroupHelper:
 
     def count(self):
         wd = self.app.wd
-        self.open_groups()
+        self.open_groups_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_group_list(self):
+        wd = self.app.wd
+        self.open_groups_page()
+        groups = []
+        for element in wd.find_elements_by_css_selector("span.group"):
+            text = element.text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            groups.append(Group(name=text, id=id))
+        return groups
