@@ -1,5 +1,14 @@
 {
-  "baseURL": "http://94.125.123.247/addressbook/",
-  "username": "admin",
-  "password": "secret"
+  "web": {
+    "baseURL": "http://94.125.123.247/addressbook/",
+    "username": "admin",
+    "password": "secret"
+  },
+  "db": {
+    "host": "94.125.123.247",
+    "dbname": "addressbook2",
+    "username": "super",
+    "password": "Tyco12345!"
+  }
 }
+
