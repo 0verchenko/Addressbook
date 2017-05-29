@@ -1,13 +1,13 @@
-import mysql.connector
+from fixture.orm import ORMFixture
+from model.group import Group
 
-
-connection = mysql.connector.connect(host="94.125.123.247", database="addressbook2", user="super", password="Tyco12345!")
+db = ORMFixture(host="localhost", dbname='addressbook2', username="super", password="1111")
 
 
 try:
-    cursor = connection.cursor()
-    cursor.execute("select * from group_list")
-    for row in cursor.fetchall():
-        print(row)
+    l = db.get_contacts_in_group(Group(id="63"))
+    for item in l:
+        print(item)
+    print(len(l))
 finally:
-    connection.close()
+    pass #db.destroy()
