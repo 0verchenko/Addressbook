@@ -6,7 +6,7 @@ def test_add_group(app, db, json_groups):
     group = json_groups
     with pytest.allure.step('Take existing group list from db'):
         old_groups = db.get_group_list()
-    with pytest.allure.step('Create new group'):
+    with pytest.allure.step('Create new group %s' %group):
         app.group.create(group)
     with pytest.allure.step('Take existing group list from db where we add groups'):
         new_groups = db.get_group_list()
